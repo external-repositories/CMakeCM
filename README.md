@@ -15,7 +15,7 @@ There are two ways to use the modules provided by CMakeCM
 ## Use PMM (Recommended)
 
 [PMM is a CMake tool that drives package management facilities from your own
-`CMakeLists.txt`](https://github.com/vector-of-bool/pmm).
+`CMakeLists.txt`](https://github.com/AnotherFoxGuy/pmm).
 
 After including `pmm.cmake` in your project, pass `CMakeCM` to the `pmm()`
 function, and the CMakeCM modules will be available for usage.

@@ -8,7 +8,7 @@ macro(_cmcm_set_if_undef varname)
 endmacro()
 
 # This is the base URL to resolve `LOCAL` modules
-_cmcm_set_if_undef(CMCM_LOCAL_RESOLVE_URL "https://vector-of-bool.github.io/CMakeCM")
+_cmcm_set_if_undef(CMCM_LOCAL_RESOLVE_URL "https://AnotherFoxGuy.com/CMakeCM")
 # This is the directory where CMakeCM will store its downloaded modules
 _cmcm_set_if_undef(CMCM_MODULE_DIR "${CMAKE_BINARY_DIR}/_cmcm-modules")
 
@@ -86,7 +86,7 @@ cmcm_module(FindBikeshed.cmake
     LOCAL modules/FindBikeshed.cmake
     VERSION 1
     )
-    
+
 cmcm_module(cotire.cmake
     REMOTE https://github.com/sakra/cotire/releases/download/cotire-1.8.0/cotire.cmake
     VERSION 1.8.0
