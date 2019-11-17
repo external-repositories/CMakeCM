@@ -109,3 +109,8 @@ cmcm_module(FindLcov.cmake
         LOCAL modules/FindLcov.cmake
         VERSION 1
         )
+        
+cmcm_module(JSONParser.cmake
+        LOCAL modules/JSONParser.cmake
+        VERSION 1
+        )
