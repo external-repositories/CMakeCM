@@ -1,4 +1,11 @@
-cmcm_add_test_project(CMakeRC
-    SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/project"
-    BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}/test.CMakeRC"
-    )
+cmake_minimum_required(VERSION 3.5)
+project(Test)
+
+include(../../CMakeCM.cmake)
+
+include(CMakeRC)
+
+cmrc_add_resource_library(dummy CMakeLists.txt)
+
+add_executable(dummy-user main.cpp)
+target_link_libraries(dummy-user PRIVATE dummy)

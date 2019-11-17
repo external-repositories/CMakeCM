@@ -1,13 +1,12 @@
-cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 project(Either CXX)
 
-include(${CMCM})
+include(../../../CMakeCM.cmake)
 
 find_package(Filesystem REQUIRED Experimental Final)
 
-add_executable(fs-user test.cpp)
-target_link_libraries(fs-user std::filesystem)
-target_compile_definitions(fs-user PRIVATE
+add_executable(fs-Either test.cpp)
+target_link_libraries(fs-Either std::filesystem)
+target_compile_definitions(fs-Either PRIVATE
     FS_HEADER=<${CXX_FILESYSTEM_HEADER}>
     FS_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE}
     )

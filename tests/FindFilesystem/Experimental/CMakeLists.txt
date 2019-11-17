@@ -1,9 +1,8 @@
-cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 project(Experimental CXX)
 
-include(${CMCM})
+include(../../../CMakeCM.cmake)
 
 find_package(Filesystem REQUIRED Experimental)
 
-add_executable(fs-user test.cpp)
-target_link_libraries(fs-user std::filesystem)
+add_executable(fs-Experimental test.cpp)
+target_link_libraries(fs-Experimental std::filesystem)

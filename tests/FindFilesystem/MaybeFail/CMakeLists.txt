@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
+
 project(MaybeFail CXX)
 
-include(${CMCM})
+include(../../../CMakeCM.cmake)
 
 find_package(Filesystem COMPONENTS Experimental Final)
 
 if(TARGET std::filesystem)
-    add_executable(fs-user test.cpp)
-    target_link_libraries(fs-user std::filesystem)
+    add_executable(fs-MaybeFail test.cpp)
+    target_link_libraries(fs-MaybeFail std::filesystem)
 endif()
