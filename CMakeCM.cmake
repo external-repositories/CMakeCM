@@ -1,9 +1,9 @@
 macro(_cmcm_set_if_undef varname)
-    if(NOT DEFINED "${varname}")
+    if (NOT DEFINED "${varname}")
         set(__default "${ARGN}")
-    else()
+    else ()
         set(__default "${${varname}}")
-    endif()
+    endif ()
     set("${varname}" "${__default}" CACHE STRING "" FORCE)
 endmacro()
 
@@ -17,16 +17,16 @@ function(cmcm_module name)
     set(args REMOTE LOCAL VERSION)
     set(list_args ALSO)
     cmake_parse_arguments(ARG "${options}" "${args}" "${list_args}" "${ARGV}")
-    if(NOT ARG_REMOTE AND NOT ARG_LOCAL)
+    if (NOT ARG_REMOTE AND NOT ARG_LOCAL)
         message(FATAL_ERROR "Either LOCAL or REMOTE is required for cmcm_module")
-    endif()
-    if(NOT ARG_VERSION)
+    endif ()
+    if (NOT ARG_VERSION)
         message(FATAL_ERROR "Expected a VERSION for cmcm_module")
-    endif()
+    endif ()
     file(MAKE_DIRECTORY "${CMCM_MODULE_DIR}")
     file(WRITE "${CMCM_MODULE_DIR}/${name}"
-        "_cmcm_include_module([[${name}]] [[${ARG_REMOTE}]] [[${ARG_LOCAL}]] [[${ARG_VERSION}]] [[${ARG_ALSO}]])\n"
-        )
+            "_cmcm_include_module([[${name}]] [[${ARG_REMOTE}]] [[${ARG_LOCAL}]] [[${ARG_VERSION}]] [[${ARG_ALSO}]])\n"
+            )
 endfunction()
 
 macro(_cmcm_include_module name remote local version also)
@@ -39,60 +39,73 @@ macro(_cmcm_include_module name remote local version also)
     get_filename_component(__resolved_stamp "${CMCM_MODULE_DIR}/resolved/${__module_name}.whence" ABSOLUTE)
     set(__whence_string "${CMCM_LOCAL_RESOLVE_URL}::${__remote}${__local}.${__version}")
     set(__download FALSE)
-    if(EXISTS "${__resolved}")
+    if (EXISTS "${__resolved}")
         file(READ "${__resolved_stamp}" __stamp)
-        if(NOT __stamp STREQUAL __whence_string)
+        if (NOT __stamp STREQUAL __whence_string)
             set(__download TRUE)
-        endif()
-    else()
+        endif ()
+    else ()
         set(__download TRUE)
-    endif()
-    if(__download)
+    endif ()
+    if (__download)
         file(MAKE_DIRECTORY "${__resolved_dir}")
-        if(__remote)
+        if (__remote)
             set(__url "${__remote}")
-        else()
+        else ()
             set(__url "${CMCM_LOCAL_RESOLVE_URL}/${__local}")
-        endif()
+        endif ()
         message(STATUS "[CMakeCM] Downloading new module ${__module_name}")
         file(DOWNLOAD
-            "${__url}"
-            "${__resolved}"
-            STATUS __st
-            )
+                "${__url}"
+                "${__resolved}"
+                STATUS __st
+                )
         list(GET __st 0 __rc)
         list(GET __st 1 __msg)
-        if(__rc)
+        if (__rc)
             message(FATAL_ERROR "Error while downloading file from '${__url}' to '${__resolved}' [${__rc}]: ${__msg}")
-        endif()
+        endif ()
         file(WRITE "${__resolved_stamp}" "${__whence_string}")
-    endif()
+    endif ()
     include("${__resolved}")
 endmacro()
 
 list(INSERT CMAKE_MODULE_PATH 0 "${CMCM_MODULE_DIR}")
 
 cmcm_module(FindFilesystem.cmake
-    LOCAL modules/FindFilesystem.cmake
-    VERSION 1
-    )
+        LOCAL modules/FindFilesystem.cmake
+        VERSION 1
+        )
 
 cmcm_module(CMakeRC.cmake
-    REMOTE https://raw.githubusercontent.com/vector-of-bool/cmrc/966a1a717715f4e57fb1de00f589dea1001b5ae6/CMakeRC.cmake
-    VERSION 1
-    )
+        REMOTE https://raw.githubusercontent.com/vector-of-bool/cmrc/966a1a717715f4e57fb1de00f589dea1001b5ae6/CMakeRC.cmake
+        VERSION 1
+        )
 
 cmcm_module(FindBikeshed.cmake
-    LOCAL modules/FindBikeshed.cmake
-    VERSION 1
-    )
+        LOCAL modules/FindBikeshed.cmake
+        VERSION 1
+        )
 
 cmcm_module(cotire.cmake
-    LOCAL modules/cotire.cmake
-    VERSION 1.8.0
-    )
+        LOCAL modules/cotire.cmake
+        VERSION 1.8.0
+        )
 
 cmcm_module(C++Concepts.cmake
-    LOCAL modules/C++Concepts.cmake
-    VERSION 1
-    )
+        LOCAL modules/C++Concepts.cmake
+        VERSION 1
+        )
+
+cmcm_module(codecov.cmake
+        LOCAL modules/codecov.cmake
+        VERSION 1
+        )
+cmcm_module(FindGcov.cmake
+        LOCAL modules/FindGcov.cmake
+        VERSION 1
+        )
+cmcm_module(FindLcov.cmake
+        LOCAL modules/FindLcov.cmake
+        VERSION 1
+        )

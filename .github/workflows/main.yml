@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        PMM_tool: ['CMakeRC']
+        PMM_tool: ['CMakeRC', 'Codecov']
         os: [ubuntu-latest, windows-latest]
     steps:
     - uses: actions/checkout@v1
