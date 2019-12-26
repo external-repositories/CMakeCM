@@ -78,7 +78,7 @@ cmcm_module(FindFilesystem.cmake
         )
 
 cmcm_module(CMakeRC.cmake
-        REMOTE https://raw.githubusercontent.com/vector-of-bool/cmrc/966a1a717715f4e57fb1de00f589dea1001b5ae6/CMakeRC.cmake
+        REMOTE https://cdn.statically.io/gh/vector-of-bool/cmrc/a7e35529/CMakeRC.cmake
         VERSION 1
         )
 
@@ -88,8 +88,8 @@ cmcm_module(FindBikeshed.cmake
         )
 
 cmcm_module(cotire.cmake
-        LOCAL modules/cotire.cmake
-        VERSION 1.8.0
+        REMOTE https://cdn.statically.io/gh/sakra/cotire/cotire-1.8.1/CMake/cotire.cmake
+        VERSION 1.8.1
         )
 
 cmcm_module(C++Concepts.cmake
