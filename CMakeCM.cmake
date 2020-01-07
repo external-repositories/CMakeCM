@@ -114,3 +114,7 @@ cmcm_module(JSONParser.cmake
         LOCAL modules/JSONParser.cmake
         VERSION 1
         )
+cmcm_module(libman.cmake
+        REMOTE https://cdn.statically.io/gh/vector-of-bool/libman/85c5d23e700a9ed6b428aa78cfa556f60b925477/cmake/libman.cmake
+        VERSION 1
+        )
