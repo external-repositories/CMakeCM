@@ -8,7 +8,7 @@ macro(_cmcm_set_if_undef varname)
 endmacro()
 
 # This is the base URL to resolve `LOCAL` modules
-_cmcm_set_if_undef(CMCM_LOCAL_RESOLVE_URL "https://github.com/flagarde/CMakeCM/blob/master")
+_cmcm_set_if_undef(CMCM_LOCAL_RESOLVE_URL "https://raw.githubusercontent.com/flagarde/CMakeCM/master/")
 # This is the directory where CMakeCM will store its downloaded modules
 _cmcm_set_if_undef(CMCM_MODULE_DIR "${CMAKE_BINARY_DIR}/_cmcm-modules")
 
