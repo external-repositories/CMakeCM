@@ -8,9 +8,17 @@ macro(_cmcm_set_if_undef varname)
 endmacro()
 
 # This is the base URL to resolve `LOCAL` modules
-_cmcm_set_if_undef(CMCM_LOCAL_RESOLVE_URL "https://raw.githubusercontent.com/flagarde/CMakeCM/master/")
+_cmcm_set_if_undef(CMCM_LOCAL_RESOLVE_URL "https://raw.githubusercontent.com/RPClab/CMakeCM/master")
 # This is the directory where CMakeCM will store its downloaded modules
 _cmcm_set_if_undef(CMCM_MODULE_DIR "${CMAKE_BINARY_DIR}/_cmcm-modules")
+
+## Some part of Colors.cmake here to Colorize the outpu before it has been downloaded
+if(NOT WIN32)
+  string(ASCII 27 Esc)
+  set(Reset "${Esc}[m")
+  set(BoldRed     "${Esc}[1;31m")
+  set(BoldMagenta "${Esc}[1;35m")
+endif()
 
 function(cmcm_module name)
     set(options)
@@ -18,10 +26,10 @@ function(cmcm_module name)
     set(list_args ALSO)
     cmake_parse_arguments(ARG "${options}" "${args}" "${list_args}" "${ARGV}")
     if (NOT ARG_REMOTE AND NOT ARG_LOCAL)
-        message(FATAL_ERROR "Either LOCAL or REMOTE is required for cmcm_module")
+        message(FATAL_ERROR "${BoldRed}Either LOCAL or REMOTE is required for cmcm_module${Reset}")
     endif ()
     if (NOT ARG_VERSION)
-        message(FATAL_ERROR "Expected a VERSION for cmcm_module")
+        message(FATAL_ERROR "${BoldRed}Expected a VERSION for cmcm_module${Reset}")
     endif ()
     file(MAKE_DIRECTORY "${CMCM_MODULE_DIR}")
     file(WRITE "${CMCM_MODULE_DIR}/${name}"
@@ -54,7 +62,7 @@ macro(_cmcm_include_module name remote local version also)
         else ()
             set(__url "${CMCM_LOCAL_RESOLVE_URL}/${__local}")
         endif ()
-        message(STATUS "[CMakeCM] Downloading new module ${__module_name}")
+        message(STATUS "${BoldMagenta}[CMakeCM] Downloading new module ${__module_name}${Reset}")
         file(DOWNLOAD
                 "${__url}"
                 "${__resolved}"
@@ -63,7 +71,7 @@ macro(_cmcm_include_module name remote local version also)
         list(GET __st 0 __rc)
         list(GET __st 1 __msg)
         if (__rc)
-            message(FATAL_ERROR "Error while downloading file from '${__url}' to '${__resolved}' [${__rc}]: ${__msg}")
+            message(FATAL_ERROR "${BoldRed}Error while downloading file from '${__url}' to '${__resolved}' [${__rc}]: ${__msg}${Reset}")
         endif ()
         file(WRITE "${__resolved_stamp}" "${__whence_string}")
     endif ()
@@ -72,10 +80,36 @@ endmacro()
 
 list(INSERT CMAKE_MODULE_PATH 0 "${CMCM_MODULE_DIR}")
 
+cmcm_module(Colors.cmake
+        LOCAL modules/Colors.cmake
+        VERSION 1
+        )
+cmcm_module(Messages.cmake
+            LOCAL modules/Messages.cmake
+            VERSION 1
+           )
+cmcm_module(Standards.cmake
+            LOCAL modules/Standards.cmake
+            VERSION 1
+           )
+           
+#doctest_project.cmake need this one 
+cmcm_module(doctest.cmake
+            REMOTE https://raw.githubusercontent.com/onqtam/doctest/master/scripts/cmake/doctest.cmake
+            VERSION 1
+            ) 
+cmcm_module(doctest_project.cmake
+        LOCAL modules/doctest_project.cmake
+        VERSION 1
+        )     
+            
+            
 cmcm_module(FindFilesystem.cmake
         LOCAL modules/FindFilesystem.cmake
         VERSION 1
         )
+
+
 
 cmcm_module(CMakeRC.cmake
         REMOTE https://cdn.statically.io/gh/vector-of-bool/cmrc/a7e35529/CMakeRC.cmake
@@ -105,6 +139,9 @@ cmcm_module(FindGcov.cmake
         LOCAL modules/FindGcov.cmake
         VERSION 1
         )
+
+
+
 cmcm_module(FindLcov.cmake
         LOCAL modules/FindLcov.cmake
         VERSION 1
