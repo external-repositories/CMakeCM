@@ -60,7 +60,7 @@ include(CMakeRC)
 The `DownloadCMakeCM.cmake` file can be placed in your own project and `include()`'d
 just like a regular file.
 
-After you `include(CMakeCM.cmake)`, all modules from CMakeCM will be ready to
+After you `include(DownloadCMakeCM.cmake)`, it will download CMakeCM and check for updates, all modules from CMakeCM will be ready to
 use.
 
 Or add these lines to your CMake file :
