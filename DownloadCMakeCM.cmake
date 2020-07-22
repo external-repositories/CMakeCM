@@ -1,6 +1,6 @@
 set(CMAKECM_ROLLING FALSE CACHE BOOL "Use Rolling for CMakeCM")
 
-set(CMAKECM_BASE_URL "https://raw.githubusercontent.com/external-repositories/CMakeCM/master/" CACHE INTERNAL "CMakeCM base URL")
+set(CMAKECM_BASE_URL "https://raw.githubusercontent.com/flagarde/CMakeCM/master/" CACHE INTERNAL "CMakeCM base URL")
 set(CMAKECM_INSTALL_DIR "${CMAKE_BINARY_DIR}/cmake/CMakeCM" CACHE INTERNAL "CMakeCM installation directory")
 
 ## Some part of Colors.cmake here to Colorize the outpu before it has been downloaded
