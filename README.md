@@ -9,7 +9,7 @@ root. It defines what modules are available for download and consumption.
 
 # How Do I Use the CMakeCM Modules?
 
-There are two ways to use the modules provided by CMakeCM
+There are three ways to use the modules provided by CMakeCM
 
 
 ## Use PMM (Recommended)
@@ -55,7 +55,26 @@ include(CMakeCM.cmake)
 # Include a module:
 include(CMakeRC)
 ```
+## Download the `DownloadCMakeCM.cmake` File to Your Own Project.
 
+The `DownloadCMakeCM.cmake` file can be placed in your own project and `include()`'d
+just like a regular file.
+
+After you `include(CMakeCM.cmake)`, all modules from CMakeCM will be ready to
+use.
+
+Or add these lines to your CMake file :
+
+file(DOWNLOAD "https://raw.githubusercontent.com/external-repositories/CMakeCM/master/DownloadCMakeCM.cmake" "${CMAKE_BINARY_DIR}/cmake/CMakeCM/DownloadCMakeCM.cmake" INACTIVITY_TIMEOUT 5 LOG CMAKECM_LOG STATUS CMAKECM_STATUS TIMEOUT 1 EXPECTED_HASH SHA256=d566e7a921527a678d38f2fe9f11a47be05d1d71fea7c4af0e7bd577bd760b7a)
+include(${CMAKE_BINARY_DIR}/cmake/CMakeCM/DownloadCMakeCM.cmake)
+
+Example:
+
+```cmake
+include(CMakeCM.cmake)
+
+# Include a module:
+include(CMakeRC)
 
 # I Want to Contribute a Module!
 
