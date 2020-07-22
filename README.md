@@ -65,8 +65,10 @@ use.
 
 Or add these lines to your CMake file :
 
+```
 file(DOWNLOAD "https://raw.githubusercontent.com/external-repositories/CMakeCM/master/DownloadCMakeCM.cmake" "${CMAKE_BINARY_DIR}/cmake/CMakeCM/DownloadCMakeCM.cmake" INACTIVITY_TIMEOUT 5 LOG CMAKECM_LOG STATUS CMAKECM_STATUS TIMEOUT 1 EXPECTED_HASH SHA256=d566e7a921527a678d38f2fe9f11a47be05d1d71fea7c4af0e7bd577bd760b7a)
 include(${CMAKE_BINARY_DIR}/cmake/CMakeCM/DownloadCMakeCM.cmake)
+```
 
 Example:
 
