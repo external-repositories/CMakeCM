@@ -12,14 +12,6 @@ _cmcm_set_if_undef(CMCM_LOCAL_RESOLVE_URL "https://raw.githubusercontent.com/RPC
 # This is the directory where CMakeCM will store its downloaded modules
 _cmcm_set_if_undef(CMCM_MODULE_DIR "${CMAKE_BINARY_DIR}/_cmcm-modules")
 
-## Some part of Colors.cmake here to Colorize the outpu before it has been downloaded
-if(NOT WIN32)
-  string(ASCII 27 Esc)
-  set(Reset "${Esc}[m")
-  set(BoldRed     "${Esc}[1;31m")
-  set(BoldMagenta "${Esc}[1;35m")
-endif()
-
 function(cmcm_module name)
     set(options)
     set(args REMOTE LOCAL VERSION)
